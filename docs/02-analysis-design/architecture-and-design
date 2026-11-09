@@ -1,0 +1,83 @@
+# System Architecture and Design Diagrams
+(Mermaid diagrams render automatically on GitHub.)
+
+## 1. Architecture
+```mermaid
+flowchart LR
+  subgraph Client
+    B[Browser / PWA]
+    S[USB scanner / camera QR]
+  end
+  subgraph Server[Apache + PHP 8.2]
+    P[PHP pages]
+    A[api.php JSON]
+    M[messages.php JSON]
+    C[config.php: session, CSRF, auth, ensure_schema]
+  end
+  D[(MySQL / MariaDB)]
+  F[uploads/students]
+  CDN[CDN: html5-qrcode, Chart.js, Google Fonts]
+  S --> B --> P
+  B --> A
+  B --> M
+  P --> C --> D
+  A --> D
+  M --> D
+  P --> F
+  B -.loads.-> CDN
+```
+
+## 2. Use cases
+```mermaid
+flowchart TB
+  Admin((Admin)) --> U1[Manage books/students]
+  Admin --> U2[Approve book requests]
+  Admin --> U3[Issue reset codes / settings]
+  Lib((Librarian)) --> U1
+  Lib --> U4[Borrow / Return by QR]
+  Lib --> U5[Attendance]
+  Stu((Student)) --> U6[Request book]
+  Stu --> U7[Dashboard / change password]
+  Admin --> U8[Chat]
+  Lib --> U8
+  Stu --> U8
+```
+
+## 3. Borrow flow
+```mermaid
+sequenceDiagram
+  participant L as Librarian
+  participant UI as borrow.php
+  participant API as api.php
+  participant DB as Database
+  L->>UI: Scan student QR (STU:no)
+  UI->>API: action=student
+  API->>DB: find student, count active loans
+  API-->>UI: student + active loans
+  L->>UI: Scan book QR (BK:accession)
+  UI->>API: action=borrow
+  API->>DB: BEGIN, check limit and availability, INSERT borrowings, available-1, COMMIT
+  API-->>UI: success + due date
+```
+
+## 4. Book-request states
+```mermaid
+stateDiagram-v2
+  [*] --> pending: student requests
+  pending --> approved: admin approves (copy held)
+  pending --> declined: admin declines
+  pending --> cancelled: student cancels
+  approved --> fulfilled: student borrows via QR
+  approved --> cancelled: student cancels
+```
+
+## 5. Login / recovery
+```mermaid
+flowchart TD
+  A[Login] -->|valid| B{role}
+  B -->|student| S[student.php]
+  B -->|staff| I[index.php]
+  A -->|too many failures| L[Temporary lock]
+  F[Forgot password] --> R[Admin verifies identity, generates 6-digit code]
+  R --> E[User enters code + new password within 10 min]
+```
