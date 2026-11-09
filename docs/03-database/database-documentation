@@ -1,0 +1,85 @@
+# Database Documentation
+**DBMS:** MySQL / MariaDB 10.4 · **Charset:** utf8mb4 · **Engine:** InnoDB · **Script:** `database.sql` (System Repo)
+Some helper tables are also created automatically by `ensure_*_schema()` in `config.php`.
+
+## ERD
+```mermaid
+erDiagram
+  students ||--o| users : "login (student_id)"
+  students ||--o{ borrowings : borrows
+  books ||--o{ borrowings : "is borrowed"
+  students ||--o{ attendance : logs
+  students ||--o{ book_requests : requests
+  books ||--o{ book_requests : "is requested"
+  students ||--o| student_login_locks : lockout
+  users ||--o| password_reset_codes : reset
+  users ||--o{ chat_conversations : "user_one/user_two"
+  chat_conversations ||--o{ chat_messages : contains
+  users ||--o{ chat_messages : sends
+```
+Relationships are enforced in application logic; `database.sql` defines no SQL FOREIGN KEY constraints.
+
+## Data dictionary
+### students
+| Column | Type | Notes |
+|---|---|---|
+| id | int PK AI | |
+| student_no | varchar(30) UNIQUE | QR value `STU:<student_no>` |
+| name | varchar(120) | |
+| gender, track, strand | varchar | |
+| grade, section | varchar | |
+| photo | varchar(255) | path under `uploads/students/` |
+| account_active | tinyint(1) default 1 | 0 = inactive |
+
+### users
+| Column | Type | Notes |
+|---|---|---|
+| id | int PK AI | |
+| username | varchar(50) | students use Student ID |
+| password | varchar(255) | bcrypt hash |
+| role | enum(admin, librarian, student) | default librarian |
+| student_id | int | link to students |
+| must_change | tinyint(1) | force password change |
+| email, email_verified_at | | optional |
+
+### books
+| Column | Type | Notes |
+|---|---|---|
+| id | int PK | |
+| accession_no | varchar(30) UNIQUE | QR value `BK:<accession_no>` |
+| title, author, publisher, category | varchar | |
+| quantity | int | total copies |
+| available | int | copies on shelf |
+
+### borrowings
+id PK · student_id · book_id (both indexed) · borrowed_at datetime · due_date date · returned_at datetime NULL (NULL = still borrowed)
+
+### attendance
+id PK · student_id (indexed) · time_in datetime · time_out datetime NULL
+
+### book_requests
+id PK · student_id · book_id · message varchar(500) · admin_reply varchar(500) · status enum(pending, approved, declined, cancelled, fulfilled) · requested_at · reviewed_at · reviewed_by · replied_at · replied_by. Indexes: (student_id,status), (book_id,status), requested_at.
+
+### chat_conversations / chat_messages
+- conversations: id, user_one, user_two, created_at; UNIQUE(user_one,user_two)
+- messages: id bigint, conversation_id, sender_id, message text, created_at, read_at NULL; indexes (conversation_id,id) and (conversation_id,sender_id,read_at)
+
+### Security / support tables
+| Table | Purpose |
+|---|---|
+| login_attempts (ip, username, tried_at) | Staff login rate limiting |
+| student_login_locks (student_id PK, failed_attempts, locked_until) | Student lockout |
+| password_reset_codes (user_id PK, code_hash, requested_at, expires_at, attempts, approved_by, approved_at) | Admin-issued reset codes (hashed) |
+| account_email_verifications (user_id PK, email, code_hash, created_at, expires_at, attempts) | Email verification codes |
+| offline_sync_operations (op_id PK, actor_user_id, operation_type, status, result_json, created_at) | Idempotency log for queued scans |
+| settings (k PK, v) | library_name, school_name, max_loans, loan_days |
+
+## Business rules
+- A student may hold at most `max_loans` (default 3) unreturned books.
+- `available` decreases on borrow and increases on return; approved bookings hold a copy.
+- Attendance rescans within `SCAN_COOLDOWN` (10 s) are rejected.
+- Borrow/return run inside DB transactions.
+
+## Backup / restore
+Export via phpMyAdmin (Export → SQL); restore by importing into an empty database.
+

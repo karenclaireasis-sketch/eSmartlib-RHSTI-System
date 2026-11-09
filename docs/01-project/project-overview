@@ -1,0 +1,30 @@
+# Project Overview
+**System name:** eSmartLib RHSTI (library display name stored in `settings`)
+**Purpose:** Automate library circulation (borrow/return), attendance, student self-service and communication for RHSTI using QR codes.
+
+## Users and roles
+| Role | Access |
+|---|---|
+| Admin | Everything: books, students, borrow/return, attendance, history, account settings, loan rules, password-reset codes, book-request approval |
+| Librarian | Books, students, borrow/return, attendance, history, chat |
+| Student | Own dashboard, book requests, profile photo, change password, chat |
+
+## Main features
+1. QR-based **borrow / return** (`STU:<student_no>`, `BK:<accession_no>`), loan limit (default 3) and due date (default 7 days).
+2. **Attendance** time-in / time-out by QR scan.
+3. Book and student management, CSV student import, printable QR codes.
+4. Student self-registration and dashboard; **online book requests** (pending → approved / declined / cancelled / fulfilled).
+5. **Password recovery** by admin-issued 6-digit code (no email needed).
+6. Private **chat** between users.
+7. History with filters; dashboard statistics and charts.
+8. **Installable PWA**; light/dark theme.
+9. Security: bcrypt, CSRF, login rate-limit and lockout, role guards.
+
+## Scope / limitations
+- Requires internet for CDN libraries; the service worker does not cache offline.
+- No email delivery; recovery is admin-mediated.
+
+## Team
+| Member | Role / responsibility |
+|---|---|
+| **TO FILL** | |
