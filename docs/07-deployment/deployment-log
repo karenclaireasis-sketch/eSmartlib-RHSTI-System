@@ -1,0 +1,15 @@
+# Deployment Records
+Record every real deployment/update. Do not store passwords here.
+
+| # | Date | Version / commit | Environment | Host | Deployed by | Changes | DB backup taken | Result |
+|---|---|---|---|---|---|---|---|---|
+| 1 | **TO FILL** | **TO FILL** | Production | **TO FILL** | **TO FILL** | Imported `database.sql`, created `hosting-config.php`, uploaded files | Yes/No | OK/Issues |
+| 2 | | | | | | | | |
+
+## Environments
+| Env | URL | DB name (no passwords) | Notes |
+|---|---|---|---|
+| Local | http://localhost/esmartlib | database | XAMPP |
+| Production | **TO FILL** | **TO FILL** | **TO FILL** |
+
+Procedure: System Repo `DEPLOYMENT.md`.

@@ -1,0 +1,31 @@
+# Technical Manual
+## Install
+See System Repo `REQUIREMENTS.md` and `DEPLOYMENT.md`.
+
+## Configuration
+- Local: automatic for `localhost`.
+- Hosting: create `hosting-config.php` from the example (host, name, user, pass). Never commit it.
+- Docker: copy `.env.example` to `.env`.
+
+## Maintenance
+| Task | How |
+|---|---|
+| Backup | phpMyAdmin → Export (SQL), regularly and before updates |
+| Restore | Import SQL into an empty database |
+| Add admin | Insert into `users` with a bcrypt hash from `password_hash()`, role `admin`; change password after login |
+| Change loan rules | Account & Requests → Settings |
+| Clear login locks | `DELETE FROM student_login_locks WHERE student_id=?;` and `DELETE FROM login_attempts;` |
+| Missing chat tables | Import `migration_chat.sql` |
+| Update system | Upload changed files only; keep `hosting-config.php` |
+
+## Troubleshooting
+| Message / symptom | Cause / fix |
+|---|---|
+| "Create hosting-config.php…" | File missing on a non-local host |
+| "Enter your current … MySQL password" | `pass` empty or still the placeholder |
+| "Could not connect to the database" | Wrong host/name/user/pass; verify in hosting panel |
+| Blank page | Check server error log (DEBUG is on only for localhost) |
+| Photos not saving | `uploads/students/` not writable |
+
+## Security checklist
+HTTPS on · default passwords changed · `hosting-config.php` private · regular backups · PHP execution blocked in `uploads/`.

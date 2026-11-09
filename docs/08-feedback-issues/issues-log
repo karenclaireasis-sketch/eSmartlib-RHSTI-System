@@ -1,0 +1,10 @@
+# Issues, Corrections and Improvement Records
+| ID | Date | Reported by | Description | Severity | Fix / correction | Commit | Status |
+|---|---|---|---|---|---|---|---|
+| ISS-001 | | | `README.txt` mentions `migration_student_dashboard.sql`, which is not in the repository | Low | Remove the line or add the file | | Open |
+| ISS-002 | | | `sw.js` is pass-through; no offline caching | Low | Add caching if offline use is required | | Open |
+| ISS-003 | | | No SQL FOREIGN KEY constraints | Medium | Add FKs in a migration | | Open |
+| ISS-004 | | | Repository has a single commit | Medium | Commit future work regularly, per member | | Open |
+
+## Improvement backlog
+Overdue notices (email/SMS) · overdue fines · bulk QR printing · export reports to Excel/PDF.
