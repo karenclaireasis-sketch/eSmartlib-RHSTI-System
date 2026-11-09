@@ -1,0 +1,31 @@
+# Technical Implementation Documentation
+
+## Architecture style
+Server-rendered PHP pages (one file per feature) sharing `config.php` (bootstrap) and `Ui2026.PHP` (UI kit). Scanning pages call JSON endpoints (`api.php`, `messages.php`) with `fetch`.
+
+## Request lifecycle
+1. Page requires `config.php` → starts session (httponly, SameSite=Lax), sets timezone `Asia/Manila`, opens PDO.
+2. `auth([roles])` redirects unauthenticated users to `login.php` and blocks wrong roles.
+3. Page-specific `ensure_*_schema($pdo)` creates/upgrades tables if missing.
+4. POST handlers validate CSRF (`csrf_token_valid`), run prepared statements, then redirect.
+
+## Configuration strategy
+- `localhost` / `127.0.0.1` → XAMPP defaults.
+- Otherwise `hosting-config.php` (git-ignored) or `DB_HOST / DB_NAME / DB_USER / DB_PASS` environment variables.
+
+## Module notes
+| Module | Implementation |
+|---|---|
+| Borrow/Return | `api.php` actions `student`, `borrow`, `return`; DB transaction; checks loan limit, availability, active account |
+| Attendance | `api.php` action `attendance`: first scan inserts `time_in`, next sets `time_out`; 10 s cooldown |
+| QR scanning | `html5-qrcode` camera or keyboard-wedge scanners; formats `STU:` / `BK:` |
+| Student import | `students.php` CSV with downloadable template |
+| Student photos | `photo_save()`: ≤ 8 MB, `getimagesize` type check, resized to 480×480 when GD exists |
+| Auth | `password_hash/verify`; staff throttle by IP+username; student progressive lockout |
+| Recovery | 6-digit hashed code, 10-minute expiry, 5 attempts, issued by admin |
+| Chat | `messages.php` JSON (CSRF-protected POST); client polling in `assets/messenger.js` |
+| PWA | `manifest.json`, `sw.js` (pass-through), `assets/pwa-install.js` |
+| Dashboard | `index.php?stats` JSON → Chart.js |
+
+## Conventions
+Prepared statements only; `h()` for HTML escaping; JSON responses through `out()` / `chat_response()`.

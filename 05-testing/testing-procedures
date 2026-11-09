@@ -1,0 +1,14 @@
+# Testing Procedures
+## Environment
+XAMPP (PHP 8.2 / MariaDB 10.4) or deployed host, database loaded from `database.sql`. Browsers: Chrome (latest) + a phone browser.
+
+## Levels
+1. **Static check:** `tests/syntax_check.sh` (System Repo).
+2. **Smoke test:** `tests/smoke_test.sh <base-url>`.
+3. **Functional (manual):** run `test-cases.md`; record Pass/Fail, tester, date.
+4. **Data integrity:** run `tests/db_integrity_check.sql`.
+5. **Security checks:** SQL-injection strings in login/search; open protected pages without login; open admin pages as student; upload a non-image; reuse an expired reset code.
+6. **User acceptance:** librarian and students perform real tasks; record feedback in `08-feedback-issues/`.
+
+## Defect handling
+Log failures in `08-feedback-issues/issues-log.md`, fix, retest, record the retest date.

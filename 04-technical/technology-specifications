@@ -1,0 +1,21 @@
+# Technology Specifications and Justifications
+| Technology | Version | Justification |
+|---|---|---|
+| PHP | 8.2 | Supported by free hosting (InfinityFree) and XAMPP; quick development of server-rendered pages; built-in `password_hash` and PDO |
+| MySQL / MariaDB | 10.4 | Relational model fits students/books/loans; free; phpMyAdmin available |
+| Apache | 2.4 | Default in XAMPP and shared hosting; `.htaccess` blocks PHP in uploads |
+| PDO | — | Prepared statements against SQL injection; transactions for borrow/return integrity |
+| Vanilla JavaScript | ES6 | No build step; deploy by uploading files |
+| html5-qrcode | 2.3.8 | Browser camera QR scanning without a native app |
+| Chart.js | 4.4.1 | Lightweight dashboard charts |
+| QR codes (`STU:` / `BK:`) | — | Cheap to print; works with USB scanners and phones |
+| PWA | — | Installable without an app store |
+| Docker (`php:8.2-apache`, MariaDB 10.4) | — | Reproducible demo/deployment environment |
+| GitHub | — | Version control and course requirement |
+
+## Alternatives considered (edit to match your group's discussion)
+| Alternative | Why not used |
+|---|---|
+| Laravel / PHP framework | Heavier hosting needs; free hosts limit CLI/Composer |
+| Node.js | Not available on the target free hosting |
+| Native mobile app | Higher cost/maintenance; PWA is sufficient |
