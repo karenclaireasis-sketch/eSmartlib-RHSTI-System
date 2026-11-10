@@ -82,4 +82,3 @@ id PK · student_id · book_id · message varchar(500) · admin_reply varchar(50
 
 ## Backup / restore
 Export via phpMyAdmin (Export → SQL); restore by importing into an empty database.
-
