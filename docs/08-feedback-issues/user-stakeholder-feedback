@@ -3,5 +3,6 @@ Record real feedback from the librarian, teachers and students (survey, intervie
 
 | Date | From (role) | Feedback | Action taken | Status |
 |---|---|---|---|---|
-| **TO FILL** | Librarian | | | |
+| 2026-11-12 | Librarian | System is easy to navigate. Layout is visually appealing, not messy or crowded. Green theme is good and can be changed to preference. Wording is easy to understand. | None needed. Keep the current design and plain wording. | Noted |
+| 2026-11-12 | Librarian | Recommends a dashboard for teachers and staff, since the library is used by teachers and staff, not only students. | Added a Teacher role: teacher login, Teacher Pass dashboard (QR pass, downloadable ID, borrowed books), and a Teachers page for library staff to register and manage accounts. Documented in the User Manual (A2). | Done for teachers. Staff dashboard: for future development |
 | **TO FILL** | Student | | | |
