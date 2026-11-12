@@ -13,10 +13,29 @@
 - **Chat:** *Chat → New chat*, search a name or ID.
 - **Forgot password:** use *Forgot password*, then ask the admin for the 6-digit code (valid 10 minutes).
 
+## A2. Teachers
+**Login**
+1. Open the site → *Login*. Your username is your **Teacher ID**. Your password is set by the library when your account is registered.
+2. Teacher accounts are created by library staff. There is no self-registration.
+
+**Dashboard** (three tabs: Dashboard · Teacher Pass · Borrowed)
+- **Dashboard:** shows your name, Teacher ID, number of books currently borrowed, total borrowing records, and the loan policy.
+- **Teacher loan policy:** no item limit and no due date. All books must still be returned to the library.
+- **Teacher Pass:** shows your QR pass (`TCH:<teacher_no>`) and the front and back of your ID. Press *Download ID* to save one PNG image with both sides.
+- **Borrowed:** list of your active and returned books (date borrowed, date returned, status).
+- **My account:** manage your account from the *My account* button.
+
+**Borrowing**
+Show your Teacher Pass QR to the librarian. The librarian scans it, then scans each book QR.
+
 ## B. Librarian / Admin
 - **Books:** *Books → Add* (accession no., title, author, publisher, category, quantity). Print book QR (`BK:<accession>`).
 - **Students:** add manually or *Import CSV* (download the template first). Print student QR (`STU:<student_no>`). Open a student to edit or deactivate (admin).
+- **Teachers:** *Teachers → Register teacher* (Teacher ID, full name, password). The Teacher ID is also the login username. Password: at least 8 characters, with a letter and a number. The teacher list shows each pass QR (`TCH:<teacher_no>`).
+  - **Activate / Deactivate** a teacher account (librarian or admin). Deactivated teachers cannot sign in.
+  - **Delete** a teacher (admin only). Not allowed if the teacher has borrowing history; deactivate the account instead.
 - **Borrow:** keep the scan box focused → scan student QR → scan book QR → confirm. Due date is automatic.
+- **Borrow (teacher):** scan teacher QR → scan each book QR. No due date and no loan limit.
 - **Return:** scan the book QR.
 - **Attendance:** scan student QR; first scan = Time-In, next = Time-Out.
 - **History:** filter Borrow / Return / Attendance, search, print.
@@ -29,6 +48,8 @@ Android Chrome: menu → *Install app*. iPhone Safari: Share → *Add to Home Sc
 | Problem | Fix |
 |---|---|
 | Camera does not scan | Use HTTPS/localhost and allow camera permission |
-| QR not recognized | Check the format `STU:` / `BK:` and that the record exists |
+| QR not recognized | Check the format `STU:` / `BK:` / `TCH:` and that the record exists |
 | "Student account is inactive" | Admin reactivates the student |
+| Teacher cannot sign in | In *Teachers*, check the account is *Active* and the username is the Teacher ID |
+| "Cannot delete teacher" | The teacher has borrowing history. Deactivate the account instead |
 | Cannot connect to database | See Technical Manual |
