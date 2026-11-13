@@ -3,13 +3,12 @@ Record every real deployment/update. Do not store passwords here.
 
 | # | Date | Version / commit | Environment | Host | Deployed by | Changes | DB backup taken | Result |
 |---|---|---|---|---|---|---|---|---|
-| 1 | **TO FILL** | **TO FILL** | Production | **TO FILL** | **TO FILL** | Imported `database.sql`, created `hosting-config.php`, uploaded files | Yes/No | OK/Issues |
-| 2 | | | | | | | | |
+| 1 | 10/29/26 | **TO FILL** | Production | Infinity Free, namecheap|Team Escan Go | Imported `database.sql`, created `hosting-config.php`, uploaded files | Yes | OK|
 
 ## Environments
 | Env | URL | DB name (no passwords) | Notes |
 |---|---|---|---|
-| Local | http://localhost/esmartlib | database | XAMPP |
-| Production | **TO FILL** | **TO FILL** | **TO FILL** |
+| Local | http://localhost/esmartlib | database | Notes |
+| Production | https://esmartlib.com| if0_43274999_database | php 8.1, Namecheap payment for 1 year |
 
 Procedure: System Repo `DEPLOYMENT.md`.
