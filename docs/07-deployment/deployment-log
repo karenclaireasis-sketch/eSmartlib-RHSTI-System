@@ -3,7 +3,7 @@ Record every real deployment/update. Do not store passwords here.
 
 | # | Date | Version / commit | Environment | Host | Deployed by | Changes | DB backup taken | Result |
 |---|---|---|---|---|---|---|---|---|
-| 1 | 2026-10-29 | **TO FILL** | Production | InfinityFree (hosting), Namecheap (domain) | Team Escan Go | Imported `database.sql`, created `hosting-config.php`, uploaded files | Yes | OK |
+| 1 | 2026-10-29 | 5fdd3dc | Production | InfinityFree (hosting), Namecheap (domain) | Team Escan Go | Imported `database.sql`, created `hosting-config.php`, uploaded files | Yes | OK |
 | 2 | | | | | | | | |
 
 ## Environments
