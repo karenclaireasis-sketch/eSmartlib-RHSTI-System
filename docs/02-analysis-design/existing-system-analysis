@@ -3,8 +3,8 @@
 
 | Process | Existing (manual) system | Problem | eSmartLib solution |
 |---|---|---|---|
-| Borrowing/returning | **TO FILL** (logbook / index cards?) | Slow, errors, no overdue tracking | QR scan, automatic due date, availability count |
-| Attendance | **TO FILL** (paper log?) | Hard to summarize | QR time-in/time-out + history |
+| Borrowing/returning |Manual Input to the system | Slow, errors, no overdue tracking | QR scan, automatic due date, availability count |
+| Attendance | Paper Log Book| Hard to summarize | QR time-in/time-out + history |
 | Book availability | **TO FILL** | Students cannot check/reserve | Online book requests |
 | Reports | **TO FILL** | Time-consuming | Dashboard + history filters |
 | Account/password help | N/A | — | Admin-issued reset code |
