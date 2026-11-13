@@ -1,9 +1,7 @@
- # Existing System Analysis
-
 | Process | Existing (manual) system | Problem | eSmartLib solution |
 |---|---|---|---|
-| Borrowing/returning |Manual Input to the system | Slow, errors, no overdue tracking | QR scan, automatic due date, availability count |
-| Attendance | Paper Log Book Manual| Hard to summarize | QR time-in/time-out + history |
-| Book availability | Yes | Students cannot check/reserve | Online book requests |
-| Reports | Yes | Time-consuming | Dashboard + history filters |
-| Account/password help | N/A | — | Admin-issued reset code |
+| Borrowing/returning | Manual input to the system | Slow, error-prone, no overdue tracking | QR scan, automatic due date, availability count |
+| Attendance | Paper log book (manual) | Hard to summarize | QR time-in/time-out + history |
+| Book availability | Checked in person at the library only | Students cannot check/reserve online | Online book requests |
+| Reports | Compiled manually from records | Time-consuming | Dashboard + history filters |
+| Account/password help | N/A | No self-service or recovery process | Admin-issued reset code |
